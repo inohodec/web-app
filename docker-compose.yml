@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  php8:
+    container_name: php8-fpm
+    build: php8/
+    volumes: 
+      - application/:var/www
+    networks: 
+      - web-app
+
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine
+    depends_on: 
+      - php8
+    volumes:
+      - nginx/nginx.conf:/etc/nginx/nginx.conf
+      - application:/var/www
+    ports: 
+      - "80:80"
+    networks:
+      - web-app
+
+networks:
+  web-app:
+    driver: bridge
