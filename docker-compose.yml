@@ -22,6 +22,10 @@ services:
     networks:
       - web-app
 
+  mariadb:
+    container_name: db
+    ipam: mariadb:latest 
+
 networks:
   web-app:
     driver: bridge
